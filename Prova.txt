@@ -1,0 +1,11 @@
+for( ; ; )
+{
+	Come fa il pulcino? pio pio,
+	come fa il gatto? miao miao,
+	come fa l'uccellino? cip cip,
+	come fa il cane? bau bau,
+	e.. come fa il cerbiatto? boooh
+	Il cerbiatto come fa? ta ra ta ra taaa
+	non c'è nessuno che lo sa
+	ta ra ta ra taaa
+}
