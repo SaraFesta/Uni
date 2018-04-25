@@ -4,11 +4,7 @@ import java.util.*;
 
 import it.unibs.fp.mylib.*;
 /**
- *
- * @author Denis Festa
- * 
- * 
- * 
+ * @author Denis Festa, Sara Salducco.
  */
 
 public class TamagotchiMain {
@@ -34,6 +30,13 @@ public class TamagotchiMain {
     
     private final static String[] vociMenuTamagotchi = {DAI_CAREZZE,DAI_BISCOTTI,DAI_CAFFE,VEDI_STATO,NUOVO_TAMAGOTCHI};
     private static MyMenuCorretto menuTamagotchi = new MyMenuCorretto(vociMenuTamagotchi);
+    
+    /**
+     * @return un oggetto di tipo Tamagotchi dotato di nome, 
+     * grado di soddisfazione iniziale e grado di sazieta' iniziale.
+     * I dati sono ottenuti con l'aiuto di it.unibs.fp.mylib.InputDati ;
+     * fornita dall'universita'.
+     */
     private static Tamagotchi creaTamagotchiDaTerminale(){
         return new Tamagotchi(
     			InputDati.leggiStringaNonVuota(INSERISCI_NOME+INSERT),
@@ -41,6 +44,9 @@ public class TamagotchiMain {
         		InputDati.leggiIntero(INSERISCI_SAZIETA+INSERT,Tamagotchi.ZERO_SAZIETA,Tamagotchi.MASSIMA_SAZIETA)
         		);
     }
+    /**
+     * @param listaTamagotchi la lista dei Tamagotchi che verra' iterata per stampare il nome di ogni tamagotchi in essa.
+     */
     public static void stampaListaTamagotchi(List<Tamagotchi> listaTamagotchi) {
 		for(int i=0;i<listaTamagotchi.size();i++) {
 			System.out.printf(ListaTamagotchi.TAMAGOTCHI_IN_LISTA+"%n",(i+1),listaTamagotchi.get(i).getNome().toUpperCase());
@@ -65,6 +71,9 @@ public class TamagotchiMain {
         		System.out.println("\n\n");
         		int scelta = menuTamagotchi.scegliSenzaTitolo();
         		switch(scelta){
+        		/**
+        		 * L'utente accarezza uno dei tamagotchi.
+        		 */
         		case 1:
         			System.out.println("\n\n");
         			System.out.println(QUALE_TAMAGOTCHI+"\n");
@@ -79,6 +88,9 @@ public class TamagotchiMain {
         			}
         			System.out.println("\n\n");
         			break;	
+        		/**
+        		 * L'utente da' i biscotti a uno dei tamagotchi.
+        		 */
         		case 2:
         			System.out.println("\n\n");
         			System.out.println(QUALE_TAMAGOTCHI+"\n");
@@ -93,6 +105,9 @@ public class TamagotchiMain {
         			}
         			System.out.println("\n\n");
         			break;
+        		/**
+        		 * L'utente da' una sigaretta a uno dei tamagotchi.
+        		 */
         		case 3:
         			System.out.println("\n\n");
         			System.out.println(QUALE_TAMAGOTCHI+"\n");
@@ -103,6 +118,9 @@ public class TamagotchiMain {
         			System.out.println(listaTamagotchi.getListaTamagotchi().get(scelta3).ricevoCaffe());
         			System.out.println("\n\n");
         			break;
+        		/**
+        		 * L'utente vedw lo stato di uno dei tamagotchi.
+        		 */
         		case 4:
         			System.out.println("\n\n");
         			System.out.println(QUALE_TAMAGOTCHI+"\n");
@@ -113,12 +131,18 @@ public class TamagotchiMain {
         			System.out.println(listaTamagotchi.getListaTamagotchi().get(scelta4).toString());
         			System.out.println("\n\n");
         			break;
+        		/**
+        		 * L'utente crea un nuovo tamagotchi (deve avere un nome diverso dai presenti).
+        		 */
         		case 5:
         			System.out.println("\n\n");
         			try{listaTamagotchi.addTamagotchi(creaTamagotchiDaTerminale());}
         			catch(TamagotchiGiaEsistenteException ex ){System.out.println(ex.toString());}
         			System.out.println("\n\n");
         			break;
+        		/**
+        		 * L'utente esce dal programma.
+        		 */
         		case 0:
         			System.out.println("\n\n");
         			System.out.println(FINE);
@@ -126,12 +150,23 @@ public class TamagotchiMain {
         			fine=true;
         			break;
         		}
+        		/**
+        		 * se nessun tamagotchi e' vivo il programma termina.
+        		 */
         		if(listaTamagotchi.nessunoVivo()){
         			System.out.println("\n\n");
         			System.out.println(COMPLIMENTI);
         			System.out.println("\n\n");
         			fine=true;
         		}else {
+        		/**
+        		 * dato che esiste almeno un tamagotchi vivo, viene iterata la lista
+        		 * dei tamagotchi alla ricerca di un tamagotchi che sia morto.
+        		 * Se viene trovato un tamagotchi morto, allora parte una seconda
+        		 * ricerca di un tamagotchi che sia diverso da quello morto trovato 
+        		 * durante la prima ricerca, se questo viene trovato, annuncera' 
+        		 * la morte del tamagotchi morto (quello trovato durante la prima ricerca).
+        		 */
         			for(Tamagotchi tamaMorto:listaTamagotchi.getListaTamagotchi()) {
         				if(tamaMorto.sonoMorto()) {
         					for(Tamagotchi tamaVivo:listaTamagotchi.getListaTamagotchi()) {
